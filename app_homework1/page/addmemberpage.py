@@ -22,6 +22,7 @@ class TestContact:
         desired_caps['skipDeviceInitialization'] = 'true'
         desired_caps['settings[waitForIdleTimeout]'] = 0
        # desired_caps['automationName'] = 'UiAutomator2'
+        desired_caps['showChromedriverLog'] = True
 
         self.driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
         self.driver.implicitly_wait(10)
@@ -69,6 +70,7 @@ class TestContact:
                 打开应用-》点击通讯录-》搜索成员-》点击成员-》编辑-》删除-》验证成功
                 :return:
                 '''
+        name = "测试"
         self.driver.find_element(MobileBy.XPATH,
                                  '//android.widget.TextView[@text="通讯录"]').click()
 
