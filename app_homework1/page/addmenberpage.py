@@ -1,13 +1,11 @@
 from appium.webdriver.common.mobileby import MobileBy
 from selenium.webdriver.support.wait import WebDriverWait
 
+from app_homework1.page.basepage import BasePage
 from app_homework1.page.contactaddpage import ContactAddPage
 
 
-class AddMenberPage:
-    def __init__(self, driver):
-        self.driver = driver
-
+class AddMenberPage(BasePage):
     def add_menual(self):
         self.driver.find_element(MobileBy.XPATH,
                                  '//android.widget.TextView[@text="手动输入添加"]').click()

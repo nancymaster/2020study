@@ -1,12 +1,10 @@
 from appium.webdriver.common.mobileby import MobileBy
 
 from app_homework1.page.addmenberpage import AddMenberPage
+from app_homework1.page.basepage import BasePage
 
 
-class ContactListPage:
-    def __init__(self, driver):
-        self.driver = driver
-
+class ContactListPage(BasePage):
     def addcontact(self):
         self.driver.find_element(MobileBy.ANDROID_UIAUTOMATOR,
                                  'new UiScrollable'

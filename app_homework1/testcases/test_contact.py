@@ -3,8 +3,9 @@ import yaml
 
 from app_homework1.page.app import App
 
-with  open('../data/addcontact.yml') as f:
-    addcontactdatas =yaml.safe_load(f)
+with open('../data/addcontact.yml') as f:
+    addcontactdatas = yaml.safe_load(f)
+
 class TestContact:
     def setup_class(self):
         self.app = App()

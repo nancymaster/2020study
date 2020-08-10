@@ -1,10 +1,9 @@
 from appium.webdriver.common.mobileby import MobileBy
 
+from app_homework1.page.basepage import BasePage
 
-class ContactAddPage:
-    def __init__(self, driver):
-        self.driver = driver
 
+class ContactAddPage(BasePage):
     def set_name(self, name):
         self.driver.find_element(MobileBy.XPATH,
                                  "//*[contains(@text,'姓名')]/../*[@class='android.widget.EditText']").send_keys(name)

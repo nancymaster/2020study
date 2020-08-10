@@ -7,7 +7,7 @@ class App(BasePage):
     _activity = ".view.WelcomeActivityAlias"
 
     def start(self):
-        if self._driver is None:
+        if self.driver is None:
             desired_caps = {}
             desired_caps['platformName'] = 'Android'
             # desired_caps['platformVersion'] = '6.0'
