@@ -6,12 +6,13 @@ from app_homework1.page.contactaddpage import ContactAddPage
 
 
 class AddMenberPage(BasePage):
+    add_manual_element = (MobileBy.XPATH,
+                          '//android.widget.TextView[@text="手动输入添加"]')
+
     def add_menual(self):
-        self.driver.find_element(MobileBy.XPATH,
-                                 '//android.widget.TextView[@text="手动输入添加"]').click()
+        self.find_and_click(self.add_manual_element)
         return ContactAddPage(self.driver)
 
     def get_toast(self):
-        element = WebDriverWait(self.driver, 30).until(lambda x: x.find_element(MobileBy.XPATH,
-                                                                       "//*[@class='android.widget.Toast']"))
+        element = self.webdriver_wait(self.toast_ele)
         return element.text

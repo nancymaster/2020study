@@ -5,9 +5,11 @@ from app_homework1.page.contactlistpage import ContactListPage
 
 
 class MainPage(BasePage):
+    contactlist = (MobileBy.XPATH,
+                   '//android.widget.TextView[@text="通讯录"]')
+
     def goto_contactlist(self):
-        self.driver.find_element(MobileBy.XPATH,
-                                 '//android.widget.TextView[@text="通讯录"]').click()
+        self.find_and_click(self.contactlist)
         return ContactListPage(self.driver)
 
     def goto_workbench(self):
