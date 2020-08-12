@@ -7,7 +7,7 @@ from app_homework1.page.personinfopage import PersonInfoPage
 
 class SearchPage(BasePage):
     search_input_ele = (MobileBy.ID, 'com.tencent.wework:id/fxc')
-    search_result_ele = (MobileBy.XPATH, '')
+    # search_result_ele = (MobileBy.XPATH, '')
 
     def search_result(self, text):
         return self.find_eles((MobileBy.XPATH, f"//*[@text='{text}']"), 3)
