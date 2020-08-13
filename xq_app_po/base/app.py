@@ -1,6 +1,7 @@
 from appium import webdriver
 from .basepage import BasePage
-from .main import Main
+from .main import MainPage
+
 
 class App(BasePage):
     _package = "com.xueqiu.android"
@@ -17,22 +18,19 @@ class App(BasePage):
             desired_caps['appActivity'] = self._activity
             desired_caps['skipServerInstallation'] = 'true'
             desired_caps['skipDeviceInitialization'] = 'true'
-            desired_caps['settings[waitForIdleTimeout]'] = 0
+            # desired_caps['settings[waitForIdleTimeout]'] = 0
             # desired_caps['automationName'] = 'UiAutomator2'
             desired_caps['showChromedriverLog'] = True
 
-            self._driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
-            self._driver.implicitly_wait(10)
+            self.driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
+            self.driver.implicitly_wait(30)
         else:
-            self._driver.start_activity(self._package, self._activity)
+            self.driver.start_activity(self._package, self._activity)
 
         return self
 
-    def restart(self):
-        pass
-
     def stop(self):
-        pass
+        self.driver.quit()
 
-    def main(self) -> Main:
-        return Main(self._driver)
+    def goto_main(self) -> MainPage:
+        return MainPage(self.driver)
