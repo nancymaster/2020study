@@ -9,19 +9,43 @@ class BasePage:
     driver: WebDriver
     logging.basicConfig(level=logging.INFO)
 
+    _black_list = [
+        (MobileBy.ID, "iv_close")
+    ]
+    _max_err_num = 3
+    _err_num = 0
+
     def __init__(self, driver=None):
         self.driver = driver
 
+    def finds(self, locator):
+        logging.info(f"finds elements：{locator}")
+        return self.driver.find_elements(*locator)
+
     def find(self, locator, value: str = None):
         logging.info(f'find:{locator}')
-        if isinstance(locator, tuple):
-            return self.driver.find_element(*locator)
-        else:
-            return self.driver.find_element(locator, value)
-
-    def find_eles(self, locator):
-        logging.info(f"find eles：{locator}")
-        return self.driver.find_elements(*locator)
+        try:
+            # find ele, clear error num
+            if isinstance(locator, tuple):
+                result = self.driver.find_element(*locator)
+            else:
+                result = self.driver.find_element(locator, value)
+            self._err_num = 0
+            return result
+        except Exception as e:
+            # not find ele, use black_list
+            if self._err_num > self._max_err_num:
+                # find num max, clear error num and raise
+                self._err_num = 0
+                raise e
+            self._err_num += 1
+            for ele in self._black_list:
+                # click black_list
+                eles = self.finds(ele)
+                if len(eles) > 0:
+                    eles[0].click()
+                    return self.find(locator)
+            raise ValueError("元素不在黑名单")
 
     def find_and_click(self, locator):
         logging.info('click')
@@ -53,4 +77,6 @@ class BasePage:
         for i in range(num):
             self.driver.back()
 
+    def set_implicitly_wait(self, time=3):
+        self.driver.implicitly_wait(time)
 

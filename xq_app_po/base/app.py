@@ -23,10 +23,10 @@ class App(BasePage):
             desired_caps['showChromedriverLog'] = True
 
             self.driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
-            self.driver.implicitly_wait(30)
         else:
             self.driver.start_activity(self._package, self._activity)
 
+        self.driver.implicitly_wait(20)
         return self
 
     def stop(self):

@@ -51,8 +51,8 @@ class BasePage:
         for i in range(num):
             self.driver.back()
 
-    def find_eles(self, locator, sleeptime=0):
+    def finds(self, locator, sleeptime=0):
         sleep(sleeptime)
-        logging.info(f"find_eles：{locator}")
+        logging.info(f"finds：{locator}")
         return self.driver.find_elements(*locator)
 

@@ -28,7 +28,7 @@ class App(BasePage):
             #self.driver.start_activity(self._package, self._activity)
             self.driver.launch_app()
 
-        self.driver.implicitly_wait(30)
+        self.driver.implicitly_wait(20)
         return self
 
     def restart(self):
