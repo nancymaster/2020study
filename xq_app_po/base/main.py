@@ -17,5 +17,8 @@ class MainPage(BasePage):
     def goto_market(self):
         #self.driver.implicitly_wait(5)
         self.find_and_click(self._edit_ele)  # 伪造黑名单
+        self.find_and_click(self._edit_ele)  # 伪造黑名单
+        self.find_and_click(self._edit_ele)  # 伪造黑名单
+        self.find_and_click(self._edit_ele)  # 伪造黑名单
         self.find_and_click(self._market_ele)
         return MarketPage(self.driver)

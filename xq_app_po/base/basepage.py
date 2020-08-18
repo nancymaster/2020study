@@ -4,48 +4,30 @@ from appium.webdriver.common.mobileby import MobileBy
 from appium.webdriver.webdriver import WebDriver
 from selenium.webdriver.support.wait import WebDriverWait
 
+from xq_app_po.page.deal_black import deal_black
+
 
 class BasePage:
     driver: WebDriver
     logging.basicConfig(level=logging.INFO)
 
-    _black_list = [
-        (MobileBy.ID, "iv_close")
-    ]
-    _max_err_num = 3
-    _err_num = 0
-
     def __init__(self, driver=None):
         self.driver = driver
 
+    @deal_black
     def finds(self, locator):
         logging.info(f"finds elements：{locator}")
         return self.driver.find_elements(*locator)
 
+    @deal_black
     def find(self, locator, value: str = None):
         logging.info(f'find:{locator}')
-        try:
-            # find ele, clear error num
-            if isinstance(locator, tuple):
-                result = self.driver.find_element(*locator)
-            else:
-                result = self.driver.find_element(locator, value)
-            self._err_num = 0
-            return result
-        except Exception as e:
-            # not find ele, use black_list
-            if self._err_num > self._max_err_num:
-                # find num max, clear error num and raise
-                self._err_num = 0
-                raise e
-            self._err_num += 1
-            for ele in self._black_list:
-                # click black_list
-                eles = self.finds(ele)
-                if len(eles) > 0:
-                    eles[0].click()
-                    return self.find(locator)
-            raise ValueError("元素不在黑名单")
+        # find ele, clear error num
+        if isinstance(locator, tuple):
+            result = self.driver.find_element(*locator)
+        else:
+            result = self.driver.find_element(locator, value)
+        return result
 
     def find_and_click(self, locator):
         logging.info('click')
