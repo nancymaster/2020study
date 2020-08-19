@@ -1,5 +1,6 @@
 import logging
 
+import yaml
 from appium.webdriver.common.mobileby import MobileBy
 from appium.webdriver.webdriver import WebDriver
 from selenium.webdriver.support.wait import WebDriverWait
@@ -61,4 +62,21 @@ class BasePage:
 
     def set_implicitly_wait(self, time=3):
         self.driver.implicitly_wait(time)
+
+    # use yml to go steps
+    def yml_step(self, yml_path):
+        with open(yml_path, encoding="utf-8") as f:
+            steps = yaml.safe_load(f)
+        logging.info(f'读取step.yml: {steps}')
+
+        self.set_implicitly_wait(20)
+        for step in steps:
+            if "action" in step.keys():
+                action = step["action"]
+                locator = (step["by"], step["locator"])
+                if "click" == action:
+                    self.find_and_click(locator)
+                if "send" == action:
+                    self.find_and_click(locator)
+                    self.find_and_sendkeys(locator, step["value"])
 

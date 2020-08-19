@@ -1,0 +1,7 @@
+- by: id
+  locator: "tv_search"
+  action: click
+- by: id
+  locator: "search_input_text"
+  action: send
+  value: "阿里巴巴"

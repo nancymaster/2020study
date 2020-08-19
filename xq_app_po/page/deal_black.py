@@ -14,7 +14,7 @@ def deal_black(func):
         try:
             result = func(*args, **kwargs)
             _err_num = 0
-            instance.set_implicitly_wait(10)
+            instance.set_implicitly_wait(20)
             return result
         except Exception as e:
             instance.set_implicitly_wait(1)
